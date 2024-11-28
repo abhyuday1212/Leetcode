@@ -17,24 +17,27 @@ class Solution {
         return (int) (pow(5, even) * pow(4, odd) % MOD);
     }
 
-   public long pow(long x, long n){
-        
+    // Fast exponentiation method to calculate (x^n) % MOD efficiently
+    public long pow(long x, long n) {
+
         // Base case for the recursion
-        if(n==0) 
+        if (n == 0)
             return 1;
-        
+
         // Recursively calculate x^(n/2)
-        long temp = pow(x,n/2);
-        
+        long half = pow(x, n / 2);
+
         // If n is even, return (x^(n/2))^2
-        if(n%2==0){
-            return (temp * temp)% MOD;
+        if (n % 2 == 0) {
+            return (half * half) % MOD;
         }
         // If n is odd, return (x^(n/2))^2 * x
-        else{
-            return (x * temp * temp)% MOD;
+        else {
+            return (x * half * half) % MOD;
         }
     }
+
+// -------------- BrutForce Approach
 
     // smaller problem -> (digit-> index) (isEven or isOdd)
     // pick the first
