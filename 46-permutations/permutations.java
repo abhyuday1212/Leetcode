@@ -14,7 +14,7 @@ class Solution {
         if (orgArr.length == index) {
             List<List<Integer>> baseResult = new ArrayList<>();
 
-            baseResult.add(newArr);
+            baseResult.add(new ArrayList<>(newArr)); // Add a copy of newArr to avoid reference issues
 
             return baseResult;
         }
@@ -27,21 +27,9 @@ class Solution {
         List<List<Integer>> finalAns = new ArrayList<>();
 
         for (int i = 0; i <= newArr.size(); i++) {
-            List<Integer> firstPlace = new ArrayList<>(newArr.subList(0, i)); // copy the elements from the newArr
-            List<Integer> secondPlace = new ArrayList<>(newArr.subList(i, newArr.size())); // Copy from i to end
-
-            firstPlace.add(currentElem);
-
-            List<Integer> combined = new ArrayList<>(firstPlace); // This will just pass the copy, without modifying the
-                                                                  // newArr
-            combined.addAll(secondPlace);
-
-            finalAns.addAll(recursivePermute(combined, orgArr, index + 1));
-
-            // backtracking solution
-            // newArr.remove(newArr.size() - 1); //-> This step will then not required as
-            // newArr is not being modified
-
+            newArr.add(i, currentElem); // Insert at position `i`
+            finalAns.addAll(recursivePermute(newArr, orgArr, index + 1));
+            newArr.remove(i); // Backtrack: Remove the inserted element
         }
         return finalAns;
 
