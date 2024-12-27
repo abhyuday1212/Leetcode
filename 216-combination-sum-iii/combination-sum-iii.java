@@ -19,7 +19,7 @@ class Solution {
         }
 
         //now running loop for various number of function calls at each level
-        for (int i = index; i < orgArr.length; i++) {
+        for (int i = index; i < 9; i++) {
 
             if (orgArr[i] > target || ds.size() >= k)
                 break;
