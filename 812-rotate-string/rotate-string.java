@@ -1,19 +1,27 @@
 class Solution {
-    public boolean rotateString(String s, String goal) {
-         String tempStr = s; 
+       public boolean rotateString(String s, String goal) {
+        boolean ans = recursiveCalc(s,goal,0);
+        return ans;
+    }
 
-        for (int i = 0; i < s.length(); i++) {
-            char firstChar = s.charAt(i);
-
-            tempStr = tempStr.substring(1);
-            String modifyStr = tempStr + firstChar;
-            tempStr = modifyStr;
-
-            if (modifyStr.equals(goal)) {
-                return true;
-            }
+      public boolean recursiveCalc(String s, String goal, int index) {
+        if (s.length() == index) {
+            return false;
         }
 
-        return false;
+        if (s.equals(goal)) {
+            return true;
+        }
+
+
+        char ch = s.charAt(0);
+
+        s = s.substring(1);
+        String modifyStr = s + ch;
+        s = modifyStr;
+
+
+        return recursiveCalc(s, goal, index+1);
     }
+
 }
