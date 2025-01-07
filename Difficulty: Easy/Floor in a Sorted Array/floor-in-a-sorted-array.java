@@ -17,21 +17,21 @@ class Solution {
             return -1;
         }
 
-        int upperBoundAns = -1;
+        int lowerBoundAns = -1;
 
         while (start <= end) {
             int mid = start + (end - start) / 2;   //index
 
-            if (k >= arr[mid]) {
-                upperBoundAns = mid;
+            if (arr[mid] <= k) {
+                lowerBoundAns = mid;
                 start = mid + 1;
-            } else if (k < arr[mid]) {
+            } else { //k < arr[mid]
                 end = mid - 1;
             }
         }
 
         // Condition that will execute this code: "End" "Target" "Start", and we need the element that is just greater than the target element.
-        return upperBoundAns;
+        return lowerBoundAns;
     }
 }
 
