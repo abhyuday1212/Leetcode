@@ -1,6 +1,5 @@
 class Solution {
     public int findKthPositive(int[] arr, int k) {
-        int ans = -1;
 
         HashMap<Integer, Integer> mp = new HashMap<>();
         for (int num : arr) {
