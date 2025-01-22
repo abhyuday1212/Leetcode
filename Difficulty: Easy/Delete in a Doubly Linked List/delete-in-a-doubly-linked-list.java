@@ -106,11 +106,9 @@ class Node {
 class Solution {
     public Node deleteNode(Node head, int x) {
         
-        if(x == 1){
-            Node prev = head;
+        if(x == 1){ 
             head = head.next;
             head.prev = null;
-            prev.next = null;
             
             return head;
         }
