@@ -1,35 +1,49 @@
 /**
  * Definition for singly-linked list.
  * public class ListNode {
- *     int val;
- *     ListNode next;
- *     ListNode() {}
- *     ListNode(int val) { this.val = val; }
- *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+ * int val;
+ * ListNode next;
+ * ListNode() {}
+ * ListNode(int val) { this.val = val; }
+ * ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
 class Solution {
+    // Optimal : Tortoise and Hare
     public ListNode middleNode(ListNode head) {
-        ListNode temp = head;
+        ListNode slow = head;
+        ListNode fast = head;
 
-        int count = 0;
-
-        while(temp != null){
-            count ++;
-            temp = temp.next;
-        }
- 
-        int midElem = count/2 + 1;
-
-        temp = head;
-
-        while(midElem != 1){
-            midElem--;
-            temp = temp.next;
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
         }
 
-        head = temp;    
-
-        return head;
+        return slow;
     }
+
+    // Brut / Better
+    // public ListNode middleNode(ListNode head) {
+    // ListNode temp = head;
+
+    // int count = 0;
+
+    // while(temp != null){
+    // count ++;
+    // temp = temp.next;
+    // }
+
+    // int midElem = count/2 + 1;
+
+    // temp = head;
+
+    // while(midElem != 1){
+    // midElem--;
+    // temp = temp.next;
+    // }
+
+    // head = temp;
+
+    // return head;
+    // }
 }
