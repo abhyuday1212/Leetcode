@@ -9,26 +9,49 @@
  * }
  */
 class Solution {
+    // recursive 
     public ListNode reverseList(ListNode head) {
         if (head == null || head.next == null)
             return head;
 
         ListNode temp = head;
         ListNode last = null;
-        ListNode front = head.next;
+        ListNode front = temp.next;
+        return recursiveApproach(temp, last);
+    }
 
-        while (temp.next != null) {
-            front = temp.next; //temporary variable
-            temp.next = last; //linking between the nodes
-
-            last = temp; // for iteration and value modification
-            temp = front; // for iteration of the front
+    public ListNode recursiveApproach(ListNode temp, ListNode last) {
+        if (temp.next == null) {
+            temp.next = last;
+            return temp;
         }
 
+        ListNode front = temp.next;
         temp.next = last;
-
-        head = temp;
-
-        return head;
+        return recursiveApproach(front, temp);
     }
+
+    // Iterative Approach
+    // public ListNode reverseList(ListNode head) {
+    // if (head == null || head.next == null)
+    // return head;
+
+    // ListNode temp = head;
+    // ListNode last = null;
+    // ListNode front = head.next;
+
+    // while (temp.next != null) {
+    // front = temp.next; //temporary variable
+    // temp.next = last; //linking between the nodes
+
+    // last = temp; // for iteration and value modification
+    // temp = front; // for iteration of the front
+    // }
+
+    // temp.next = last;
+
+    // head = temp;
+
+    // return head;
+    // }
 }
