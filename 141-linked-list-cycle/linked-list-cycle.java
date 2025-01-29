@@ -10,26 +10,47 @@
  * }
  */
 public class Solution {
-    // Brute: Use a hashMap to check weather that node exist or not
+    // Optimal: tartosie hare
     public boolean hasCycle(ListNode head) {
         if (head == null || head.next == null)
             return false;
 
-        HashMap<ListNode, Integer> mp = new HashMap<>();
-        ListNode temp = head;
+        ListNode slow = head;
+        ListNode fast = head;
 
-        while (temp != null) {
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
             // check if that node already exist
-            if (mp.containsKey(temp)) {
+            if (slow == fast) {
                 return true;
             }
-
-            // save
-            mp.put(temp, mp.getOrDefault(temp, 0) + 1);
-
-            temp = temp.next;
         }
 
         return false;
     }
+
+    // Brute: Use a hashMap to check weather that node exist or not
+    // public boolean hasCycle(ListNode head) {
+    // if (head == null || head.next == null)
+    // return false;
+
+    // HashMap<ListNode, Integer> mp = new HashMap<>();
+    // ListNode temp = head;
+
+    // while (temp != null) {
+    // // check if that node already exist
+    // if (mp.containsKey(temp)) {
+    // return true;
+    // }
+
+    // // save
+    // mp.put(temp, mp.getOrDefault(temp, 0) + 1);
+
+    // temp = temp.next;
+    // }
+
+    // return false;
+    // }
 }
