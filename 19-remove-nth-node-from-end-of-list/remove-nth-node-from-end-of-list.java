@@ -9,44 +9,73 @@
  * }
  */
 class Solution {
-    // Brut is find the length of the LL and subtract the n, and traverse the LL
-    // till that ans
+    // Modified Version of tartoise and hare which take the 
+    // Tc: O(n)
     public ListNode removeNthFromEnd(ListNode head, int n) {
-        ListNode temp = head;
+        ListNode fast = head;
 
-        int lengthOfLL = findLength(head);
-
-        if(lengthOfLL == 1 && n == 1){
+        if (head.next == null && n == 1) {
             return null;
         }
 
-        int count = lengthOfLL - n;
-        if (count < 0) {
-            return head;
-        }
-        else if(count == 0){
-            return head = head.next;
+        for (int i = 0; i < n; i++) {
+            fast = fast.next;
         }
 
-        while (count != 1) {
-            count--;
-            temp = temp.next;
+        ListNode slow = head;
+
+        if (fast == null) {
+            return head.next;
         }
 
-        temp.next = temp.next.next;
+        while (fast.next != null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
 
+        slow.next = slow.next.next;
         return head;
     }
 
-    public int findLength(ListNode head) {
-        int count = 0;
+    // Brut is find the length of the LL and subtract the n, and traverse the LL
+    // Tc: O(2n) {In worst case...}
+    // till that ans
+    // public ListNode removeNthFromEnd(ListNode head, int n) {
+    // ListNode temp = head;
 
-        ListNode temp = head;
-        while (temp != null) {
-            count++;
-            temp = temp.next;
-        }
+    // int lengthOfLL = findLength(head);
 
-        return count;
-    }
+    // if(lengthOfLL == 1 && n == 1){
+    // return null;
+    // }
+
+    // int count = lengthOfLL - n;
+    // if (count < 0) {
+    // return head;
+    // }
+    // else if(count == 0){
+    // return head = head.next;
+    // }
+
+    // while (count != 1) {
+    // count--;
+    // temp = temp.next;
+    // }
+
+    // temp.next = temp.next.next;
+
+    // return head;
+    // }
+
+    // public int findLength(ListNode head) {
+    // int count = 0;
+
+    // ListNode temp = head;
+    // while (temp != null) {
+    // count++;
+    // temp = temp.next;
+    // }
+
+    // return count;
+    // }
 }
