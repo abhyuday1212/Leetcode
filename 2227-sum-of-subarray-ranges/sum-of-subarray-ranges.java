@@ -1,23 +1,126 @@
 class Solution {
-    // Brut: Striver
+    // Optimal
     public long subArrayRanges(int[] nums) {
+        return sumSubarrayMaxs(nums) - sumSubarrayMins(nums);
+    }
+
+    public long sumSubarrayMaxs(int[] nums) {
+        int[] nge = findNge(nums);
+        int[] pge = findPge(nums);
         long sum = 0;
 
-        // find the shape
+        for (int i = 0; i < nums.length; i++) {
+            long right = nge[i] - i;
+            long left = i - pge[i];
 
-        for(int i = 0; i < nums.length; i++){
-            long largest = nums[i];
-            long smallest = nums[i];
-            for(int j = i; j < nums.length; j++){
-                largest = Math.max(nums[j],largest);
-                smallest = Math.min(nums[j], smallest);
-
-                sum = sum + (largest - smallest);
-            }
+            long totalContribution = left * right * nums[i];
+            sum = sum + totalContribution;
         }
 
         return sum;
     }
+
+    public long sumSubarrayMins(int[] nums) {
+        int[] nse = findNse(nums);
+        int[] pse = findPse(nums);
+        long sum = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+            long right = nse[i] - i;
+            long left = i - pse[i];
+
+            long totalContribution = left * right * nums[i];
+            sum = sum + totalContribution;
+        }
+
+        return sum;
+
+    }
+
+    public int[] findNge(int[] nums) {
+        int[] ans = new int[nums.length];
+        Stack<Integer> st = new Stack<>();
+
+        for (int i = nums.length - 1; -1 < i; i--) {
+            while (!st.isEmpty() && nums[st.peek()] <= nums[i]) {
+                st.pop();
+            }
+
+            ans[i] = st.isEmpty() ? nums.length : st.peek();
+            st.push(i);
+        }
+
+        return ans;
+    }
+
+    public int[] findNse(int[] nums) {
+        int[] ans = new int[nums.length];
+        Stack<Integer> st = new Stack<>();
+
+        for (int i = nums.length - 1; -1 < i; i--) {
+            while (!st.isEmpty() && nums[st.peek()] >= nums[i]) {
+                st.pop();
+            }
+
+            ans[i] = st.isEmpty() ? nums.length : st.peek();
+            st.push(i);
+        }
+
+        return ans;
+    }
+
+    public int[] findPse(int[] nums) {
+        int[] ans = new int[nums.length];
+        Stack<Integer> st = new Stack<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            while (!st.isEmpty() && nums[st.peek()] > nums[i]) {
+                st.pop();
+            }
+
+            ans[i] = st.isEmpty() ? -1 : st.peek();
+            st.push(i);
+        }
+
+        return ans;
+    }
+
+    public int[] findPge(int[] nums) {
+        int[] ans = new int[nums.length];
+        Stack<Integer> st = new Stack<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            while (!st.isEmpty() && nums[st.peek()] < nums[i]) {
+                st.pop();
+            }
+
+            ans[i] = st.isEmpty() ? -1 : st.peek();
+            st.push(i);
+        }
+
+        return ans;
+    }
+
+    // Brut: Striver
+    // Tc: almost O(N^2)
+    // public long subArrayRanges(int[] nums) {
+    // long sum = 0;
+
+    // // find the shape
+
+    // for(int i = 0; i < nums.length; i++){
+    // long largest = nums[i];
+    // long smallest = nums[i];
+    // for(int j = i; j < nums.length; j++){
+    // largest = Math.max(nums[j],largest);
+    // smallest = Math.min(nums[j], smallest);
+
+    // sum = sum + (largest - smallest);
+    // }
+    // }
+
+    // return sum;
+    // }
 
     // My Method
     // Brut: Generate all the sub arrays and then find the range from the max and
