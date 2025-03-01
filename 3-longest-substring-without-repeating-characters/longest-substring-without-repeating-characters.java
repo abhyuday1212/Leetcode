@@ -7,6 +7,8 @@ class Solution {
 
         for (int r = 0; r < s.length(); r++) {
             char current = s.charAt(r);
+
+            // important after and is due to this test case: "abba"
             if (mp.containsKey(current) && mp.get(current) >= l) {
                 l = mp.get(current) + 1;
             }
