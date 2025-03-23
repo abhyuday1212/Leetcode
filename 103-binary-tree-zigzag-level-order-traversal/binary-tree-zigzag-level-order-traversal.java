@@ -22,7 +22,7 @@ class Solution {
 
         q.offer(root);
 
-        boolean rightToLeft = false;
+        boolean leftToRight = true;
 
         while(!q.isEmpty()){
             int size = q.size();
@@ -31,17 +31,17 @@ class Solution {
             for(int i = 0; i < size; i++){
                 TreeNode node = q.poll(); // top element
 
-                if (rightToLeft) {
-                    sublevel.addFirst(node.val);
-                } else {
+                if (leftToRight) {
                     sublevel.addLast(node.val);
+                } else {
+                    sublevel.addFirst(node.val);
                 }
 
                 if (node.left != null) q.offer(node.left);
                 if (node.right != null) q.offer(node.right);
             }
             // toggle after every iteration at each level
-            rightToLeft = !rightToLeft;
+            leftToRight = !leftToRight;
             ans.add(sublevel);
         }
 
