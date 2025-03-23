@@ -20,7 +20,7 @@ class Solution {
 
         if (root == null) return  ans;
 
-        q.offer(root);
+        q.add(root);
 
         boolean leftToRight = true;
 
@@ -37,8 +37,8 @@ class Solution {
                     sublevel.addFirst(node.val);
                 }
 
-                if (node.left != null) q.offer(node.left);
-                if (node.right != null) q.offer(node.right);
+                if (node.left != null) q.add(node.left);
+                if (node.right != null) q.add(node.right);
             }
             // toggle after every iteration at each level
             leftToRight = !leftToRight;
