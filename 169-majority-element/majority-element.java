@@ -1,18 +1,40 @@
 class Solution {
     public int majorityElement(int[] nums) {
-        HashMap<Integer, Integer> countMap = new HashMap<>();
-         int majorityCount = nums.length / 2;
+        // The Boyer-Moore algorithm uses only constant extra space (O(1)) compared to the O(n) space required for the HashMap.
+        // TC: O(n) SC: O(1)
 
+        int count = 0;
+        int el = nums[0];
 
-        for (int everyNum : nums) {
-            int count = countMap.getOrDefault(everyNum, 0) + 1;
-            if (count > majorityCount) {
-                return everyNum; // Return as soon as we find the majority element
+        for (int i = 0; i < nums.length; i++) {
+            // break condition
+            if (count == 0) {
+                count = 1;
+                el = nums[i];
+            } else if (nums[i] == el) {
+                count++;
+            } else {
+                count--;
             }
-            countMap.put(everyNum, count);
         }
-        return -1;
+
+        return el;
     }
+
+    // Tc: O(n)
+    // public int majorityElement(int[] nums) {
+    // HashMap<Integer, Integer> countMap = new HashMap<>();
+    // int majorityCount = nums.length / 2;
+
+    // for (int everyNum : nums) {
+    // int count = countMap.getOrDefault(everyNum, 0) + 1;
+    // if (count > majorityCount) {
+    // return everyNum; // Return as soon as we find the majority element
+    // }
+    // countMap.put(everyNum, count);
+    // }
+    // return -1;
+    // }
 
     // Time Limit Exceeded
     // public int majorityElement(int[] nums) {
