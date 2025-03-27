@@ -151,29 +151,28 @@ class Node
 
 class Solution {
     public static ArrayList<ArrayList<Integer>> Paths(Node root) {
-       return pathsHelper(root, new ArrayList<>(), new ArrayList<>());
+       return pathsHelper(root, new ArrayList<>());
     }
     
-    public static ArrayList<ArrayList<Integer>> pathsHelper(Node root, ArrayList<Integer> ds, ArrayList<ArrayList<Integer>> result){
-         if (root == null) {
-            return result;
+    public static ArrayList<ArrayList<Integer>> pathsHelper(Node root, ArrayList<Integer> ds) {
+        ArrayList<ArrayList<Integer>> baseAns = new ArrayList<>();
+
+        if (root == null) {
+            return baseAns;
         }
-        
-         //self work
+
+        //self work
         ds.add(root.data);
-        
-        if(root.left == null && root.right == null){
-            result.add(new ArrayList<>(ds));
+
+        if (root.left == null && root.right == null) {
+            baseAns.add(new ArrayList<>(ds));
+        } else {
+            baseAns.addAll(pathsHelper(root.left, ds));
+            baseAns.addAll(pathsHelper(root.right, ds));
         }
-        
-        else {
-            pathsHelper(root.left, ds, result);
-            pathsHelper(root.right, ds, result);
-        }
-        
-        
+
         ds.remove(ds.size() - 1);
 
-        return result;
+        return baseAns;
     }
 }
