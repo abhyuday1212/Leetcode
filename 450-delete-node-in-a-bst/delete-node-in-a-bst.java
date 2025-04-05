@@ -15,43 +15,57 @@
  */
 class Solution {
     public TreeNode deleteNode(TreeNode root, int key) {
-        if (root == null)
-            return null;
+        TreeNode parent = null;
+        TreeNode current = root;
 
-        if (key < root.val) {
-            root.left = deleteNode(root.left, key);
-        } else if (key > root.val) {
-            root.right = deleteNode(root.right, key);
+        // Find the node to be deleted
+        while (current != null && current.val != key) {
+            parent = current;
+            if (key < current.val) {
+                current = current.left;
+            } else {
+                current = current.right;
+            }
+        }
+
+        // If the key was not found, return the original root.
+        if (current == null) {
+            return root;
+        }
+
+        // Case when the node to delete has two children
+        if (current.left != null && current.right != null) {
+            // Find the in-order successor (smallest in the right subtree)
+            TreeNode successorParent = current;
+            TreeNode successor = current.right;
+            while (successor.left != null) {
+                successorParent = successor;
+                successor = successor.left;
+            }
+
+            // Copy the successor's value to the current node
+            current.val = successor.val;
+
+            // Now prepare to delete the successor node instead
+            parent = successorParent;
+            current = successor;
+        }
+
+        // At this point, current has at most one child.
+        TreeNode child = (current.left != null) ? current.left : current.right;
+
+        // If the node to be deleted is the root
+        if (parent == null) {
+            return child;
+        }
+
+        // Attach the child to the proper parent pointer
+        if (parent.left == current) {
+            parent.left = child;
         } else {
-            //key == root.val
-            //element found to be deleted
-            // Case 1: No child or Case 2: One child
-            // 1
-             if (root.left == null) {
-                return root.right;
-            }
-            if (root.right == null) {
-                return root.left;
-            }
-
-            // Case 3: Two children - find the in-order successor (smallest in the right subtree)
-
-            TreeNode lastElem = findMin(root.right);
-
-            root.val = lastElem.val;
-            // Delete the successor
-            root.right = deleteNode(root.right, lastElem.val);
-
+            parent.right = child;
         }
 
         return root;
-
-    }
-
-    private TreeNode findMin(TreeNode node) {
-        while (node.left != null) {
-            node = node.left;
-        }
-        return node;
     }
 }
