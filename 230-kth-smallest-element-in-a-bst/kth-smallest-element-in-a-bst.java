@@ -18,23 +18,49 @@ class Solution {
         if(root == null) return 0;
         List<Integer> elements = new ArrayList<>();
 
-        traverseTree(root, elements);
+        traverseTree(root, elements, k);
 
-        Collections.sort(elements);
+        // Collections.sort(elements);
 
-        if(k == 0) return elements.get(0);
+        // if(k == 0) return elements.get(0);
 
         return elements.get(k - 1);
     }
 
-    public void traverseTree(TreeNode root, List<Integer> ds){
-        if(root == null){
+     public void traverseTree(TreeNode root, List<Integer> ds,int k){
+        if(root == null || ds.size() >= k){
             return;
         }
 
+        traverseTree(root.left, ds, k);
+
         ds.add(root.val);
-        traverseTree(root.left, ds);
-        traverseTree(root.right, ds);
-        // ds.remove(ds.size() - 1);
+
+        if(ds.size() >= k) return;
+
+        traverseTree(root.right, ds, k);
     }
+
+    // public int kthSmallest(TreeNode root, int k) {
+    //     if(root == null) return 0;
+    //     List<Integer> elements = new ArrayList<>();
+
+    //     // dfsMethod(root, elements);
+
+    //     Collections.sort(elements);
+
+    //     if(k == 0) return elements.get(0);
+
+    //     return elements.get(k - 1);
+    // }
+
+    // public void dfsMethod(TreeNode root, List<Integer> ds){
+    //     if(root == null){
+    //         return;
+    //     }
+
+    //     ds.add(root.val);
+    //     dfsMethod(root.left, ds);
+    //     dfsMethod(root.right, ds);
+    // }
 }
