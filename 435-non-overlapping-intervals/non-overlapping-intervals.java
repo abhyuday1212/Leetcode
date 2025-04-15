@@ -7,9 +7,12 @@ class Solution {
         int lastEndTime = intervals[0][1];
 
         for (int i = 1; i < n; i++) {
-            if (lastEndTime <= intervals[i][0]) {
-                lastEndTime = intervals[i][1];
+            // if lastEndTime < startEndTime => Non overlapping interval
+            int curStartTime = intervals[i][0];
+            int curEndTime = intervals[i][1];
+            if (lastEndTime <= curStartTime) { // "=" condition is for this question only
                 count++;
+                lastEndTime = curEndTime;
             }
         }
 
