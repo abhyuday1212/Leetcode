@@ -9,8 +9,7 @@ class Solution {
         // Handle negative exponents by taking the reciprocal
         if (n < 0) {
             x = 1 / x;
-            n = -n; 
-            //make the n possitive
+            n = -n; //make the n possitive
         }
 
         return power(x, n);
@@ -27,7 +26,8 @@ class Solution {
         if (n % 2 == 0) {
             return half * half;
         } else {
-            return half * half * x; //if it odd then an extra x needed to be added
+            //if it odd then an extra x needed to be added
+            return half * half * x;
         }
     }
 }
