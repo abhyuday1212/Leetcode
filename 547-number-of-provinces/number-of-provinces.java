@@ -18,7 +18,7 @@ class Solution {
 
     public static void dfsTraversal(int node, boolean[] visited, int[][] isConnected) {
         visited[node] = true;
-        for (int j = 0; j < isConnected.length; j++) {
+        for (int j = 0; j < isConnected[node].length; j++) {
             // if there's a direct connection and j hasn't been visited yet
             if (isConnected[node][j] == 1 && !visited[j]) {
                 dfsTraversal(j, visited, isConnected);
