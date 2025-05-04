@@ -58,14 +58,35 @@ class Solution {
         
         boolean[] isVisited = new boolean[V];
     
+        // for(int i = 0; i < V; i++){
+        //     if(!isVisited[i]){
+        //         if(checkCycleUsingBfs(i,isVisited, adj)) return true;
+        //     }
+        // }
+        
         for(int i = 0; i < V; i++){
             if(!isVisited[i]){
-                if(checkCycleUsingBfs(i,isVisited, adj)) return true;
+                if(checkCycleUsingDfs(i, -1, isVisited, adj)) return true;
             }
         }
         
         return false;
         
+    }
+    
+    public boolean checkCycleUsingDfs(int curNode, int cameFrom, boolean[] isVisited, ArrayList<ArrayList<Integer>> adj){
+        isVisited[curNode] = true;
+        
+        for(int adjNode: adj.get(curNode)){
+            if(!isVisited[adjNode]){
+                if(checkCycleUsingDfs(adjNode, curNode, isVisited, adj)) return true;
+            }
+            else if(cameFrom != adjNode){
+                return true;
+            }
+        }
+        
+        return false;
     }
     
     
