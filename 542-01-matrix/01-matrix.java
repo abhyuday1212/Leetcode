@@ -1,5 +1,5 @@
 class Solution {
-    private class Pair {
+    private static class Pair {
         int row;
         int column;
         int distance;
@@ -14,7 +14,6 @@ class Solution {
     public int[][] updateMatrix(int[][] mat) {
         int m = mat.length;
         int n = mat[0].length;
-        int v = m * n;
 
         int[][] distanceMat = new int[m][n];
         boolean[][] isVisited = new boolean[m][n];
@@ -27,34 +26,35 @@ class Solution {
                     isVisited[i][j] = true;
                     q.add(new Pair(i, j, distanceMat[i][j]));
 
-                } else {
-                    // do the bfs traversal to find the nearest 0;
-                    // int distance = findDistanceBybfs(i, j, adj, mat);
-                    // After rotten oranges, this is the second question, this is because in rotten oranges also we had to traverse level wise, in this also we have to traverse level wise but it is not needed because of the increase in time complexity
-                    isVisited[i][j] = false;
                 }
+                // do the bfs traversal to find the nearest 0;
+                // int distance = findDistanceBybfs(i, j, adj, mat);
+                // After rotten oranges, this is the second question, this is because in rotten oranges also we had to traverse level wise, in this also we have to traverse level wise but it is not needed because of the increase in time complexity
+
             }
         }
 
+        int[] dr = { -1, 1, 0, 0 };
+        int[] dc = { 0, 0, -1, 1 };
 
-        int[] dr = {-1, 1, 0, 0};
-        int[] dc = {0, 0, -1, 1};
-
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             Pair curPair = q.poll();
 
             int curRow = curPair.row;
             int curCol = curPair.column;
             int distance = curPair.distance;
 
-            for(int k = 0; k < 4; k++){
+            for (int k = 0; k < 4; k++) {
                 int nextRow = dr[k] + curRow;
                 int nextCol = dc[k] + curCol;
 
-                if(nextRow >= 0 && nextRow < m && nextCol >= 0 && nextCol < n && !isVisited[nextRow][nextCol]){
+                if (nextRow >= 0 && nextRow < m && nextCol >= 0 && nextCol < n && !isVisited[nextRow][nextCol]) {
                     isVisited[nextRow][nextCol] = true;
-                    distanceMat[nextRow][nextCol] = distance + 1;
-                    q.offer(new Pair(nextRow, nextCol, distance + 1)); 
+                    // distanceMat[nextRow][nextCol] = distance + 1;
+                    // q.offer(new Pair(nextRow, nextCol, distance + 1));
+                    Pair next = new Pair(nextRow, nextCol, distance + 1);
+                    distanceMat[nextRow][nextCol] = next.distance;
+                    q.offer(next);
                 }
             }
         }
