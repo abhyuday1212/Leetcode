@@ -1,4 +1,7 @@
 class Solution {
+    int[] dr = { -1, 1, 0, 0 };
+    int[] dc = { 0, 0, -1, 1 };
+    
     public void solve(char[][] board) {
         int m = board.length;
         int n = board[0].length;
@@ -50,10 +53,6 @@ class Solution {
         int m = board.length;
         int n = board[0].length;
         isVisited[curRow][curCol] = true;
-        System.out.println("Marked the row " + curRow + " and the col " + curCol + " as visited.");
-
-        int[] dr = { -1, 1, 0, 0 };
-        int[] dc = { 0, 0, -1, 1 };
 
         for (int k = 0; k < 4; k++) {
             int nextRow = dr[k] + curRow;
