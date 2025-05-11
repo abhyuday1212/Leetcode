@@ -6,11 +6,32 @@ class Solution {
         Arrays.fill(color, -1);
 
         for (int i = 0; i < V; i++) {
+            // the above for loop is required if the graph is not connected
             if (color[i] == -1) {
                 // then do the bfsTraversal
-                if (!bfsTraversal(i, V,color, graph)) {
+                if (!dfsTraversal(i, V, 0, color, graph)) {
                     return false;
                 }
+                // if (!bfsTraversal(i, V, color, graph)) {
+                //     return false;
+                // }
+            }
+        }
+
+        return true;
+    }
+
+    public boolean dfsTraversal(int curNode, int V, int col, int[] color, int[][] adj) {
+        color[curNode] = col;
+
+        for (int adjElems : adj[curNode]) {
+            if (color[adjElems] == -1) {
+                color[adjElems] = 1 - color[curNode];
+                if(!dfsTraversal(adjElems, V,  color[adjElems], color, adj)){
+                    return false;
+                }
+            } else if (color[adjElems] == color[curNode]) {
+                return false;
             }
         }
 
