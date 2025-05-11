@@ -9,6 +9,9 @@ class Solution {
         }
     }
 
+    int[] dr = { -1, 1, 0, 0 };
+    int[] dc = { 0, 0, -1, 1 };
+
     public int[][] floodFill(int[][] image, int sr, int sc, int color) {
         int m = image.length;
         int n = image[0].length;
@@ -52,8 +55,6 @@ class Solution {
             // System.out.println("Processing Pair:" + curRow + " & " + curCol);
 
             // find the connected neighbours
-            int[] dr = { -1, 1, 0, 0 };
-            int[] dc = { 0, 0, -1, 1 };
 
             for (int i = 0; i < 4; i++) {
                 int nextRow = dr[i] + curRow;
