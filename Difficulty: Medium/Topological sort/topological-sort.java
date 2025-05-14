@@ -56,26 +56,75 @@ class Main {
 class Solution {
     public static ArrayList<Integer> topoSort(int V, int[][] edges) {
         ArrayList<ArrayList<Integer>> adj = createAdjList(V, edges);
-        boolean[] isVisited = new boolean[V];
-        Stack<Integer> st = new Stack<>();
         
+        int[] indegree = new int[V];
         
-        for(int i = 0; i < V; i++){
-            if(!isVisited[i]){
-                // do a dfs traversal
-                dfsTraversal(i,st, isVisited, adj);
+        Queue<Integer> q = new LinkedList<>();
+        
+        // Add the values in indegree
+        for(int u = 0; u < V; u++){
+            for(int v: adj.get(u)){
+                // Visit all vertices v that u points to. (u -> v)
+                indegree[v]++;
             }
         }
         
-        ArrayList<Integer> list = new ArrayList<>();
         
-        while(!st.isEmpty()){
-            list.add(st.peek());
-            st.pop();
+        // Step 2: Add all nodes with indegree 0 to the queue
+        for (int i = 0; i < V; i++) {
+            if (indegree[i] == 0) {
+                q.add(i);
+            }
+        }
+
+        
+        // after filling the indegree now add the root element and start traversal
+        ArrayList<Integer> topo = new ArrayList<>();
+
+        
+        while(!q.isEmpty()){
+            int node = q.poll();
+        
+            topo.add(node);
+            
+            for(int cur: adj.get(node)){
+                indegree[cur]--;
+                
+                if(indegree[cur] == 0){
+                    q.add(cur);
+                }
+            }
         }
         
-        return list;
+        
+        return topo;
     }
+    
+    
+    // public static ArrayList<Integer> topoSort(int V, int[][] edges) {
+    //     ArrayList<ArrayList<Integer>> adj = createAdjList(V, edges);
+    //     boolean[] isVisited = new boolean[V];
+    //     Stack<Integer> st = new Stack<>();
+        
+        
+    //     for(int i = 0; i < V; i++){
+    //         if(!isVisited[i]){
+    //             // do a dfs traversal
+    //             dfsTraversal(i,st, isVisited, adj);
+    //         }
+    //     }
+        
+    //     ArrayList<Integer> list = new ArrayList<>();
+        
+    //     while(!st.isEmpty()){
+    //         list.add(st.peek());
+    //         st.pop();
+    //     }
+        
+    //     return list;
+    // }
+    
+    
     
     public static void dfsTraversal(int curNode, Stack<Integer> st, boolean[] isVisited, ArrayList<ArrayList<Integer>> adj){
         isVisited[curNode] = true;
