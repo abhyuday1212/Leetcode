@@ -84,15 +84,16 @@ class Solution {
         
         while(!q.isEmpty()){
             int node = q.poll();
-        
             topo.add(node);
             
             for(int cur: adj.get(node)){
-                indegree[cur]--;
-                
-                if(indegree[cur] == 0){
-                    q.add(cur);
+                if(indegree[cur] != 0){
+                    indegree[cur]--;
+                    if(indegree[cur] == 0){
+                        q.add(cur);
+                   }
                 }
+                
             }
         }
         
