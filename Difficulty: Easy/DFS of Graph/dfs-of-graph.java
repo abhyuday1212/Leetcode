@@ -42,21 +42,22 @@ class Solution {
     public ArrayList<Integer> dfs(ArrayList<ArrayList<Integer>> adj) {
         boolean[] visited = new boolean[adj.size()];
         
-        ArrayList<Integer> bfs = new ArrayList<>();
+        ArrayList<Integer> dfsList = new ArrayList<>();
+        
         visited[0] = true;
         
-        dfsTraversal(0, visited, bfs, adj);
+        dfsTraversal(0, visited, dfsList, adj);
         
-        return bfs;
+        return dfsList;
     }
     
-    public static void dfsTraversal(Integer node,boolean[] visited, ArrayList<Integer> bfs, ArrayList<ArrayList<Integer>> adj){
-        bfs.add(node);
+    public static void dfsTraversal(Integer node,boolean[] visited, ArrayList<Integer> dfsList, ArrayList<ArrayList<Integer>> adj){
+        dfsList.add(node);
         visited[node] = true;
         
         for(Integer currElemInAdjList: adj.get(node)){
             if(visited[currElemInAdjList] == false){
-                dfsTraversal(currElemInAdjList, visited, bfs, adj);
+                dfsTraversal(currElemInAdjList, visited, dfsList, adj);
             }
         }
     }
