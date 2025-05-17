@@ -26,24 +26,68 @@ class GFG {
 
 
 class Solution {
+    // for BFS implementation => Kahns Algorithm
     public boolean isCyclic(int V, int[][] edges) {
-        // Always create adjList from the given edges
-        ArrayList<ArrayList<Integer>> adjList = createAdjList(V, edges);
+        ArrayList<ArrayList<Integer>> adj = createAdjList(V, edges);
         
-        boolean[] isVisited = new boolean[V];
-        boolean[] isPathVisited = new boolean[V];
+        int[] indegree = new int[V];
         
+        // calculate indegree form the adj list
+        for(int u = 0; u < V; u++){
+            for(int v: adj.get(u)){
+                indegree[v]++;
+            }
+        }
+        
+        Queue<Integer> q = new LinkedList<>();
+        // put all the indegree elements whose value is 0
         for(int i = 0; i < V; i++){
-            if(!isVisited[i]){
-                if(checkCycleUsingDfs(i, isVisited, isPathVisited, adjList)){
-                    return true;
+            if(indegree[i] == 0){
+                q.add(i);
+            }
+        }
+         
+        
+        ArrayList<Integer> topo = new ArrayList<>();
+        
+        
+        while(!q.isEmpty()){
+            int curNode = q.poll();
+            topo.add(curNode);
+            
+            for(int adjNode: adj.get(curNode)){
+                indegree[adjNode]--;
+                if(indegree[adjNode] == 0){
+                    q.add(adjNode);
                 }
             }
         }
         
-        return false;
+        boolean ans = topo.size() < V ? true : false;
         
+        return ans;
     }
+    
+    
+    // for DFS implementation
+    // public boolean isCyclic(int V, int[][] edges) {
+    //     // Always create adjList from the given edges
+    //     ArrayList<ArrayList<Integer>> adjList = createAdjList(V, edges);
+        
+    //     boolean[] isVisited = new boolean[V];
+    //     boolean[] isPathVisited = new boolean[V];
+        
+    //     for(int i = 0; i < V; i++){
+    //         if(!isVisited[i]){
+    //             if(checkCycleUsingDfs(i, isVisited, isPathVisited, adjList)){
+    //                 return true;
+    //             }
+    //         }
+    //     }
+        
+    //     return false;
+        
+    // }
     
     public ArrayList<ArrayList<Integer>> createAdjList(int V, int[][] edges){
         ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
@@ -64,6 +108,7 @@ class Solution {
         
         return adj;
     }
+    
     
     public boolean checkCycleUsingDfs(int curNode, boolean[] isVisited, boolean[] isPathVisited, ArrayList<ArrayList<Integer>> adj){
         isVisited[curNode] = true;
