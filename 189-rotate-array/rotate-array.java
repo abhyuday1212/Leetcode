@@ -12,6 +12,9 @@ class Solution {
             return; // that array will not be rotated
         } else if (k > nums.length) {
             k = k % nums.length;
+            if(k == nums.length){
+                return;
+            }
         }
 
         int n = nums.length;
