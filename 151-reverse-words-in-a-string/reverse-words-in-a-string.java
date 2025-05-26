@@ -15,8 +15,6 @@ class Solution {
         finalString.trim();
 
         return finalString;
-
-
     }
  
 }
