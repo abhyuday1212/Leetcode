@@ -39,8 +39,8 @@ class Solution {
             }
         }
 
-        for (int row = 0; row < m; row++) {
-            for (int col = 0; col < n; col++) {
+        for (int row = 1; row < m - 1; row++) {
+            for (int col = 1; col < n - 1; col++) {
                 if (board[row][col] == 'O' && !isVisited[row][col]) {
                     // System.out.println("Did DFS for " + row + " col: " + col);
                     board[row][col] = 'X';
