@@ -57,7 +57,13 @@ class Solution {
     public static ArrayList<Integer> topoSort(int V, int[][] edges) {
         ArrayList<ArrayList<Integer>> adj = createAdjList(V, edges);
         
+        return topoSortUsingBFS(adj, V);
+    }
+    
+    
+    public static ArrayList<Integer> topoSortUsingBFS(ArrayList<ArrayList<Integer>> adj, int V){
         int[] indegree = new int[V];
+        ArrayList<Integer> topo = new ArrayList<>();
         
         Queue<Integer> q = new LinkedList<>();
         
@@ -71,16 +77,14 @@ class Solution {
         
         
         // Step 2: Add all nodes with indegree 0 to the queue
+        // after filling the indegree now add the root element and start traversal
+        
         for (int i = 0; i < V; i++) {
             if (indegree[i] == 0) {
                 q.add(i);
             }
         }
-
         
-        // after filling the indegree now add the root element and start traversal
-        ArrayList<Integer> topo = new ArrayList<>();
-
         
         while(!q.isEmpty()){
             int node = q.poll();
@@ -100,7 +104,6 @@ class Solution {
         
         return topo;
     }
-    
     
     // public static ArrayList<Integer> topoSort(int V, int[][] edges) {
     //     ArrayList<ArrayList<Integer>> adj = createAdjList(V, edges);
