@@ -56,7 +56,7 @@ class Solution {
         visited[node] = true;
         
         for(Integer currElemInAdjList: adj.get(node)){
-            if(visited[currElemInAdjList] == false){
+            if(!visited[currElemInAdjList]){
                 dfsTraversal(currElemInAdjList, visited, dfsList, adj);
             }
         }
