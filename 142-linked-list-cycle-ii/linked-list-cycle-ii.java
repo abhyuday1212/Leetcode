@@ -1,12 +1,12 @@
 /**
  * Definition for singly-linked list.
  * class ListNode {
- * int val;
- * ListNode next;
- * ListNode(int x) {
- * val = x;
- * next = null;
- * }
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
  * }
  */
 public class Solution {
@@ -17,14 +17,12 @@ public class Solution {
         ListNode slow = head;
         ListNode fast = head;
 
-        while (fast != null && fast.next != null) {
+        while(fast != null && fast.next != null){
             slow = slow.next;
             fast = fast.next.next;
-
-            // check if that node already exist
-            if (slow == fast) {
+            if(fast == slow){
                 slow = head;
-                while (slow != fast) {
+                while(slow != fast){
                     slow = slow.next;
                     fast = fast.next;
                 }
@@ -34,6 +32,4 @@ public class Solution {
 
         return null;
     }
-
-    // Brut: Use hashing
 }
