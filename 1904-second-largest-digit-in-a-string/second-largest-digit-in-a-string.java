@@ -1,22 +1,22 @@
 class Solution {
     public int secondHighest(String s) {
         int first = -1;
-        int seccond = -1;
+        int second = -1;
 
-        for (char ch : s.toCharArray()) {
-            int intVal = ch - '0'; // convert charater to string
-            if (intVal <= 9) {
-                // System.out.println("Num: " + intVal);
-                //if numbers then only
-                if(intVal != first) seccond = Math.max(intVal, seccond);
+        for(char ch : s.toCharArray()){
+            if(Character.isDigit(ch)){
+                int val = ch - '0';
 
-                if (intVal > first) {
-                    seccond = first;
-                    first = Math.max(first, intVal);
+                if(first < val){
+                    second = first;
+                    first = val;
+                }
+                else if(val < first){
+                    second = Math.max(val,second);
                 }
             }
         }
 
-        return seccond;
+        return second;
     }
 }
