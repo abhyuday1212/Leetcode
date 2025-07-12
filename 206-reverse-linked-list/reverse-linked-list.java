@@ -16,20 +16,20 @@ class Solution {
 
         ListNode temp = head;
         ListNode last = null;
-        ListNode front = temp.next;
-        return recursiveApproach(temp, last);
+        return recursion(temp, last);
     }
 
-    public ListNode recursiveApproach(ListNode temp, ListNode last) {
-        if (temp.next == null) {
+    public ListNode recursion(ListNode temp, ListNode last){
+        if(temp.next == null){
             temp.next = last;
             return temp;
         }
 
         ListNode front = temp.next;
-        temp.next = last;
-        return recursiveApproach(front, temp);
+        temp.next =  last;
+        return recursion(front, temp);
     }
+
 
     // Iterative Approach
     // public ListNode reverseList(ListNode head) {
