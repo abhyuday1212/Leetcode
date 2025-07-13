@@ -17,8 +17,6 @@ class Solution {
             temp.add(nums[i]);
         }
 
-        System.out.println("List: " + temp);
-
         for(int i = 0; i < n; i++){
             nums[i] = temp.get(i);
         }
