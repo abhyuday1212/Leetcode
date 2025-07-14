@@ -1,31 +1,36 @@
 class Solution {
     public boolean isValid(String s) {
-        if(s.length() == 1) return false;
-        Stack<Character> stack = new Stack<>();
+        Stack<Character> st1 = new Stack<>();
+
         boolean ans = false;
 
         for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '(' || s.charAt(i) == '[' || s.charAt(i) == '{') {
-                stack.push(s.charAt(i));
-            } else {
-                // current wla closing character h
-                if (stack.isEmpty())
+            char ch = s.charAt(i);
+            if(ch == '(' || ch == '[' || ch == '{'){
+                st1.push(ch);
+                ans = false;
+            }
+            else {
+                //agr closing aaye to while loop lga k s2 me daal do
+                if (st1.isEmpty()) {
                     return false;
+                }
 
-                char poppedBracket = stack.peek();
-                stack.pop(); // also pop the bracket from the stack
+                char poppedChar = st1.pop();
 
-                if (poppedBracket == '(' && s.charAt(i) == ')' || poppedBracket == '[' && s.charAt(i) == ']'
-                        || poppedBracket == '{' && s.charAt(i) == '}') {
+                if (poppedChar == '(' && ch == ')' || poppedChar == '{' && ch == '}' || poppedChar == '['
+                        && ch == ']') {
                     ans = true;
                 } else {
                     return false;
                 }
 
             }
+
         }
 
-        if(!stack.isEmpty()) return false;
+        if(!st1.isEmpty()) return false;
+
 
         return ans;
     }
