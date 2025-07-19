@@ -3,10 +3,10 @@ class Solution {
         List<String> ans = new ArrayList<>();
         Arrays.sort(folder);
         int n = folder.length;
-        ans.add(folder[0]); // "/a"
+        ans.add(folder[0]);
 
         for (int i = 1; i < n; i++) {
-            String curStr = folder[i]; //"/a/b"
+            String curStr = folder[i];
             String lastAddedFolder = ans.get(ans.size() - 1);
 
             if (!curStr.startsWith(lastAddedFolder + "/")) {
