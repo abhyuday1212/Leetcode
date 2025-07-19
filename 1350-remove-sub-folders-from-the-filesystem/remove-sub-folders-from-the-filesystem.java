@@ -1,53 +1,74 @@
 class Solution {
     public List<String> removeSubfolders(String[] folder) {
         List<String> ans = new ArrayList<>();
-        HashMap<String, Integer> mp = new HashMap<>();
         Arrays.sort(folder);
-
         int n = folder.length;
-     
+        ans.add(folder[0]); // "/a"
 
-        for (int i = 0; i < n; i++) {
-            String curStr = folder[i];
-            // System.out.println(curStr);
+        for (int i = 1; i < n; i++) {
+            String curStr = folder[i]; //"/a/b"
+            String lastAddedFolder = ans.get(ans.size() - 1);
 
-            if (curStr != null && curStr.length() >= 2) {
-                String subStr = removeLast(curStr);
-                // System.out.println("subStr: " + subStr);
-
-                if (!isParentFolderExists(subStr, mp)) {
-                    ans.add(folder[i]);
-                }
+            if (!curStr.startsWith(lastAddedFolder + "/")) {
+                ans.add(curStr);
             }
-            else if(curStr != null){
-                ans.add(folder[i]);
-            }
-
-            mp.put(folder[i], 1);
         }
 
         return ans;
     }
 
-    boolean isParentFolderExists(String str, HashMap<String, Integer> mp){
-        if(str.length() < 2){
-            return false;
-        }
+    // Brut: Sort
+    // Remove the last /** elements
+    // create a recursive function to keep doing this
 
-        if(mp.containsKey(str)){
-            return true;
-        }
+    // public List<String> removeSubfolders(String[] folder) {
+    //     List<String> ans = new ArrayList<>();
+    //     HashMap<String, Integer> mp = new HashMap<>();
+    //     Arrays.sort(folder);
 
-        return isParentFolderExists(removeLast(str), mp);
-    }
+    //     int n = folder.length;
 
-    public static String removeLast(String s) {
-        int lastSlashIndex = s.lastIndexOf('/');
+    //     for (int i = 0; i < n; i++) {
+    //         String curStr = folder[i];
+    //         // System.out.println(curStr);
 
-        if (lastSlashIndex <= 0) {
-            return ""; 
-        }
+    //         if (curStr != null && curStr.length() >= 2) {
+    //             String subStr = removeLast(curStr);
+    //             // System.out.println("subStr: " + subStr);
 
-        return s.substring(0, lastSlashIndex);
-    }
+    //             if (!isParentFolderExists(subStr, mp)) {
+    //                 ans.add(folder[i]);
+    //             }
+    //         }
+    //         else if(curStr != null){
+    //             ans.add(folder[i]);
+    //         }
+
+    //         mp.put(folder[i], 1);
+    //     }
+
+    //     return ans;
+    // }
+
+    // boolean isParentFolderExists(String str, HashMap<String, Integer> mp){
+    //     if(str.length() < 2){
+    //         return false;
+    //     }
+
+    //     if(mp.containsKey(str)){
+    //         return true;
+    //     }
+
+    //     return isParentFolderExists(removeLast(str), mp);
+    // }
+
+    // public static String removeLast(String s) {
+    //     int lastSlashIndex = s.lastIndexOf('/');
+
+    //     if (lastSlashIndex <= 0) {
+    //         return ""; 
+    //     }
+
+    //     return s.substring(0, lastSlashIndex);
+    // }
 }
