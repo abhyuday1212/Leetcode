@@ -18,31 +18,37 @@ class Solution {
         List<List<Integer>> ans = new LinkedList<List<Integer>>();
         Queue<TreeNode> q = new LinkedList<>();
 
-        if (root == null) return  ans;
+        if (root == null)
+            return ans;
 
         q.add(root);
 
         boolean leftToRight = true;
 
-        while(!q.isEmpty()){
-            int size = q.size();
-            List<Integer> sublevel = new LinkedList<Integer>();
+        while (!q.isEmpty()) {
+            int n = q.size();
+            List<Integer> sublevel = new ArrayList<>();
 
-            for(int i = 0; i < size; i++){
-                TreeNode node = q.poll(); // top element
+            // right to left
+            for (int i = 0; i < n; i++) {
+                TreeNode topElem = q.poll();
+                sublevel.add(topElem.val);
 
-                if (leftToRight) {
-                    sublevel.addLast(node.val);
-                } else {
-                    sublevel.addFirst(node.val);
-                }
-
-                if (node.left != null) q.add(node.left);
-                if (node.right != null) q.add(node.right);
+                // find next elems
+                if (topElem.left != null)
+                    q.add(topElem.left);
+                if (topElem.right != null)
+                    q.add(topElem.right);
             }
-            // toggle after every iteration at each level
+
+            if (!leftToRight) {
+                Collections.reverse(sublevel);
+                ans.add(sublevel);
+            } else {
+                ans.add(sublevel);
+            }
+            
             leftToRight = !leftToRight;
-            ans.add(sublevel);
         }
 
         return ans;
