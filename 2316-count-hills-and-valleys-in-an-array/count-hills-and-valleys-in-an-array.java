@@ -1,36 +1,48 @@
 class Solution {
     public int countHillValley(int[] nums) {
+        // int n = nums.length;
+        // int count = 0;
+
+        // for (int i = 1; i < n - 1; i++) {
+        //     if (nums[i] == nums[i - 1])
+        //         continue;
+
+        //     int cur = nums[i];
+        //     int left = i - 1;
+        //     int right = i + 1;
+
+        //     while (left >= 0 && nums[left] == cur) {
+        //         left--;
+        //     }
+
+        //     while (right < n - 1 && nums[right] == cur) {
+        //         right++;
+        //     }
+
+        //     if (left >= 0 && right < n) {
+        //         if (nums[left] < cur && nums[right] < cur) {
+        //             count++;
+        //         }
+
+        //         if (cur < nums[left] && cur < nums[right]) {
+        //             count++;
+        //         }
+        //     }
+
+        // }
+
+        // return count;
+
+        int prev = nums[0];
         int n = nums.length;
         int count = 0;
 
-        for (int i = 1; i < n - 1; i++) {
-            if (nums[i] == nums[i - 1])
-                continue;
-
-            int cur = nums[i];
-            int left = i - 1;
-            int right = i + 1;
-
-            while (left >= 0 && nums[left] == cur) {
-                left--;
+        for(int i=1; i<n-1; i++){
+            if(nums[i] > prev && nums[i] > nums[i+1] || nums[i] < prev && nums[i] < nums[i+1]){
+                count++;
+                prev = nums[i];
             }
-
-            while (right < n - 1 && nums[right] == cur) {
-                right++;
-            }
-
-            if (left >= 0 && right < n) {
-                if (nums[left] < cur && nums[right] < cur) {
-                    count++;
-                }
-
-                if (cur < nums[left] && cur < nums[right]) {
-                    count++;
-                }
-            }
-
         }
-
         return count;
     }
 }
