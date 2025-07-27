@@ -1,6 +1,62 @@
 class Solution {
     public int countHillValley(int[] nums) {
         int n = nums.length;
+        int hill = 0;
+        int valley = 0;
+
+        int lastLeft = -1;
+        int lastRight = -1;
+
+        for(int i = 0; i < n - 1; i++){
+            int cur = nums[i];
+            int left = i - 1;
+            int right = i + 1;
+
+            while(left >= 0 && nums[left] == cur){
+                left--;
+            }
+
+            while(right < n - 1 && nums[right] == cur){
+                right++;
+            }
+
+            // left and right are standing at the value of leftNonEqual and right non Equal respectively
+
+            // if(nums[left] == cur || cur == nums[right]){
+            //     continue;
+            // }
+
+            if(left < 0 || right > n ){
+                continue;
+            }
+
+            // dont count same valley multiple times
+            if(lastLeft == left && lastRight == right){
+                continue;
+            }
+
+            if(nums[left] < cur && nums[right] < cur){
+                hill++;
+            }
+
+            if(cur < nums[left] && cur < nums[right]){
+                valley++;
+            }
+
+            lastLeft = left;
+            lastRight = right;
+        }
+
+        return hill + valley;
+
+    }
+}
+
+// BRUT: Find the left and right Non equal Elems and store them
+/* 
+class Solution {
+    public int countHillValley(int[] nums) {
+        int n = nums.length;
 
         int[] leftElems = new int[n];
         int[] rightElems = new int[n];
@@ -66,3 +122,4 @@ class Solution {
         return 0;
     }
 }
+*/
