@@ -1,13 +1,16 @@
 class Solution {
     public int countHillValley(int[] nums) {
         int n = nums.length;
-        int hill = 0;
-        int valley = 0;
+        // int hill = 0;
+        // int valley = 0;
+        int count = 0;
 
-        int lastLeft = -1;
-        int lastRight = -1;
+        // int lastLeft = -1;
+        // int lastRight = -1;
 
-        for(int i = 0; i < n - 1; i++){
+        for(int i = 1; i < n - 1; i++){
+            if(nums[i] == nums[i-1]) continue;
+
             int cur = nums[i];
             int left = i - 1;
             int right = i + 1;
@@ -20,34 +23,23 @@ class Solution {
                 right++;
             }
 
-            // left and right are standing at the value of leftNonEqual and right non Equal respectively
-
-            // if(nums[left] == cur || cur == nums[right]){
-            //     continue;
-            // }
-
-            if(left < 0 || right > n ){
-                continue;
-            }
-
-            // dont count same valley multiple times
-            if(lastLeft == left && lastRight == right){
-                continue;
-            }
-
-            if(nums[left] < cur && nums[right] < cur){
-                hill++;
+            if(left >= 0 || right < n ){
+               if(nums[left] < cur && nums[right] < cur){
+                // hill++;
+                count++;
             }
 
             if(cur < nums[left] && cur < nums[right]){
-                valley++;
+                // valley++;
+                count++;
+            }
             }
 
-            lastLeft = left;
-            lastRight = right;
+             
+ 
         }
 
-        return hill + valley;
+        return count;
 
     }
 }
