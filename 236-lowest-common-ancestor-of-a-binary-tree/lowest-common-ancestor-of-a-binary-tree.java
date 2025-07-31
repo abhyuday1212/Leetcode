@@ -9,45 +9,52 @@
  */
 class Solution {
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        ArrayList<TreeNode> path1 = new ArrayList<>();
-        boolean found1 = findPath(root, path1, p);
-
-        ArrayList<TreeNode> path2 = new ArrayList<>();
-        boolean found2 = findPath(root, path2, q);
-
-        return findLCS(path1, path2);
-    }
-
-    
-    public TreeNode findLCS(ArrayList<TreeNode> path1, ArrayList<TreeNode> path2) {
-        int lowestSize = path1.size() > path2.size() ? path2.size() : path1.size();
-
-
-        int index = 0;
-        TreeNode firstOrCommonIndex = path1.size() > path2.size() ? path2.getFirst() : path1.getFirst();
-
-        while (index < lowestSize) {
-            if (path1.get(index).val == path2.get(index).val) {
-                firstOrCommonIndex = path1.get(index);
-            }
-            index++;
+        if(root == null){
+            return root;
         }
 
-        return firstOrCommonIndex;
+        List<TreeNode> pathP = new ArrayList<>();
+        List<TreeNode> pathQ = new ArrayList<>();
+
+        if(findPath(root, p, pathP) &&  findPath(root, q, pathQ)){
+            return findLCS(root, pathP, pathQ, p.val, q.val);
+        }
+
+        return null;
     }
 
-    public boolean findPath(TreeNode root, ArrayList<TreeNode> ds, TreeNode key) {
-        if (root == null) {
+    public TreeNode findLCS(TreeNode root, List<TreeNode> path1, List<TreeNode> path2, int p, int q){
+        TreeNode lastCommonNode = root;
+
+        int left = 0, right = 0;
+
+        while(left < path1.size() && right < path2.size()){
+            if(path1.get(left).val == p && path2.get(right).val == q){
+                return lastCommonNode;
+            }
+
+            if(path1.get(left) == path2.get(right)){
+                lastCommonNode = path1.get(left);
+            }
+            left++;
+            right++;
+        }
+
+        return lastCommonNode;
+    }
+
+    public boolean findPath(TreeNode root, TreeNode node, List<TreeNode> ds){
+        if(root == null){
             return false;
         }
 
         ds.add(root);
 
-        if (root.val == key.val) {
-            return true; // Path found
+        if(root.val == node.val || root.val == node.val){
+            return true;
         }
 
-        if (findPath(root.left, ds, key) || findPath(root.right, ds, key)) {
+        if(findPath(root.left, node, ds) || findPath(root.right, node, ds)){
             return true;
         }
 
