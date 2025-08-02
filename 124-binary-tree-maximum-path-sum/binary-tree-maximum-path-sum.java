@@ -29,7 +29,7 @@ class Solution {
             return 0;
         }
 
-        maxPathSum = Math.max(maxPathSum, root.val);
+        // maxPathSum = Math.max(maxPathSum, root.val);
 
         // int left = findPathSum(root.left);
         // int right = findPathSum(root.right);
