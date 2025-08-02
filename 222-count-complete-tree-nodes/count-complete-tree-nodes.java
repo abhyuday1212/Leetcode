@@ -18,12 +18,12 @@ class Solution {
         if (root == null)
             return 0;
 
-        int leftHt = findLeftHt(root.left);
-        int rightHt = findRightHt(root.right);
+        // int leftHt = findLeftHt(root.left);
+        // int rightHt = findRightHt(root.right);
 
-        if (leftHt == rightHt){
-            return ((int) Math.pow(2, leftHt + 1) - 1);
-        }
+        // if (leftHt == rightHt){
+        //     return ((int) Math.pow(2, leftHt + 1) - 1);
+        // }
             
         return recursivelyTraverse(root);
     }
