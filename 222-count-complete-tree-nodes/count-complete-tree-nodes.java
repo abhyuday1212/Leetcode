@@ -13,19 +13,24 @@
  *     }
  * }
  */
+ 
+ /*
+ Tc: log(n)^2
+ Sc: O(n) -> recursion
+  */
 class Solution {
     public int countNodes(TreeNode root) {
         if (root == null)
             return 0;
 
-        // int leftHt = findLeftHt(root.left);
-        // int rightHt = findRightHt(root.right);
+        int leftHt = findLeftHt(root.left);
+        int rightHt = findRightHt(root.right);
 
-        // if (leftHt == rightHt){
-        //     return ((int) Math.pow(2, leftHt + 1) - 1);
-        // }
+        if (leftHt == rightHt){
+            return ((int) Math.pow(2, leftHt + 1) - 1);
+        }
             
-        return recursivelyTraverse(root);
+        return 1 + countNodes(root.left) + countNodes(root.right);
     }
 
     private int findLeftHt(TreeNode root) {
@@ -49,12 +54,12 @@ class Solution {
     // Brut:
     // Tc: O(n)
     // Sc: O(n)
-    public int recursivelyTraverse(TreeNode root) {
-        //inorder traversal
-        if (root == null) {
-            return 0;
-        }
+    // public int recursivelyTraverse(TreeNode root) {
+    //     //inorder traversal
+    //     if (root == null) {
+    //         return 0;
+    //     }
 
-        return 1 + recursivelyTraverse(root.left) + recursivelyTraverse(root.right);
-    }
+    //     return 1 + recursivelyTraverse(root.left) + recursivelyTraverse(root.right);
+    // }
 }
