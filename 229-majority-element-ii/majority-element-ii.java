@@ -9,7 +9,6 @@ class Solution {
             ans.add(nums[0]);
             return ans;
         }
-        ;
 
         int count1 = 0;
         int element1 = nums[0];
@@ -22,10 +21,10 @@ class Solution {
                 count1++;
             } else if (num == element2) {
                 count2++;
-            } else if (count1 == 0) {
+            } else if (count1 == 0 && num != element2) {
                 element1 = num;
                 count1 = 1;
-            } else if (count2 == 0) {
+            } else if (count2 == 0 && num != element1) {
                 element2 = num;
                 count2 = 1;
             } else {
