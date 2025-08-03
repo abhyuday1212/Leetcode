@@ -15,31 +15,35 @@
  */
 class Solution {
     public TreeNode insertIntoBST(TreeNode root, int val) {
-        if(root == null) return new TreeNode(val);
-       
-        TreeNode node = root;
+        TreeNode head = root;
 
-        while(root != null){
-           if(val < root.val && root.left == null){
-                root.left = new TreeNode(val);
-                break;
-            }
+        if(root == null){
+            return new TreeNode(val);
+        }
+        
+        TreeNode prev = null;
 
-            if( val > root.val && root.right == null){
-                root.right = new TreeNode(val);
-                break;
-            }
-
-            System.out.print(root.val);
-            if(root.val < val){
-                // move right
-                root = root.right;
+        while(head != null || head != null){
+            if(head.val > val){
+                prev = head;
+                head = head.left;
             }
             else{
-                root = root.left;
+                prev = head;
+                head = head.right;
             }
         }
 
-        return node;
+        if(val < prev.val){
+            TreeNode temp = new TreeNode(val);
+            prev.left = temp;
+        }
+        else{
+            // System.out.println("Reached Here:" + prev.val);
+            TreeNode temp = new TreeNode(val);
+            prev.right = temp;
+        }
+        
+        return root;
     }
 }
