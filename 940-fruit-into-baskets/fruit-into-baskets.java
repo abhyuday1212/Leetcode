@@ -1,36 +1,30 @@
 class Solution {
-    // Tc: O(2n)
-    // Sc O(3), elements being stored in map
     public int totalFruit(int[] fruits) {
-        int l = 0, r = 0;
-        int maxCount = 0;
+        int left = 0, right = 0;
+
         int n = fruits.length;
-        Map<Integer, Integer> mp = new HashMap<>();
+        int maxCount = 0;
 
-        while (r < n) {
-            int curr = fruits[r];
-            mp.put(curr, mp.getOrDefault(curr, 0) + 1);
+        HashMap<Integer, Integer> mp = new HashMap<>();
 
-            // break condition
-            while (mp.size() > 2) {
-                // In this we have to decrease the count of that particular by 1;
-                int freq = mp.get(fruits[l]);
-                mp.put(fruits[l], freq - 1);
+        while(right < n){
+            int cur = fruits[right];
+            mp.put(cur, mp.getOrDefault(cur, 0) + 1);
 
-                if (mp.get(fruits[l]) <= 0) {
-                    mp.remove(fruits[l]);
-                }
+           // break condition;
+           while(mp.size() > 2){
+            int freq = mp.get(fruits[left]);
+            mp.put(fruits[left], freq - 1);
 
-                l++;
+            if(mp.get(fruits[left]) <= 0){
+                mp.remove(fruits[left]);
             }
 
-            if (mp.size() <= 2) {
-                maxCount = Math.max(maxCount, r - l + 1);
-            }
+            left++;
+           }
 
-            System.out.println(mp);
-
-            r++;
+            maxCount = Math.max(maxCount, right - left + 1);
+            right++;
         }
 
         return maxCount;
