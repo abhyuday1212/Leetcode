@@ -25,7 +25,9 @@ class Solution {
             return lowestCommonAncestor(root.right, p, q);
         }
 
+         // if both lie left side
         if(cur > p.val && cur > q.val){
+            // then move left
             return lowestCommonAncestor(root.left, p, q);
         }
 
