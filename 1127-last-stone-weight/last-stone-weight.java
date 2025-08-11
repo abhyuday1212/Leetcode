@@ -14,8 +14,7 @@ class Solution {
             int num2 = maxHeap.poll(); // seccond top elem
 
             if (num1 != num2) {
-                int diff = Math.abs(num1 - num2);
-                maxHeap.add(diff);
+                maxHeap.add(Math.abs(num1 - num2));
             }
 
         }
