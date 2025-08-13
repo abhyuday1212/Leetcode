@@ -1,37 +1,40 @@
 class Solution {
-    public List<List<Integer>> permute(int[] nums) {
-        List<Integer> myList = new ArrayList<>();
+    // Method 1: visitedArr => has an extra space complexity
+    // Method 2: Swap (Optimal)
+    // => Keep Adding into the ds, and swapping the current index with the startIndex,
+    // => startIndex will always update in the recursion call helping to know that you have to swap other elements from the index to nums.length - 1
 
-        List<List<Integer>> myAns = recursivePermute(myList, nums, 0);
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> myAns = new ArrayList<>();
+        List<Integer> ds = new ArrayList<>();
+
+        findPermutaions(ds, nums, myAns, 0);
 
         return myAns;
+    }
+
+    public void findPermutaions(List<Integer> ds, int[] nums, List<List<Integer>> ans, int index){
+        if(index == nums.length){
+            ans.add(new ArrayList<>(ds));
+            return;
+        }
+
+        int startIndex = index;
+
+        for(int i = index; i < nums.length ; i++){
+            ds.add(nums[i]);
+            findPermutaions(ds, swap(nums, startIndex, i), ans, index + 1);
+            nums = swap(nums, startIndex, i);
+            ds.remove(ds.size() - 1);
+        }
 
     }
 
-    static List<List<Integer>> recursivePermute(List<Integer> newArr, int[] orgArr, int index) {
-        // base case: If you reach the end, or the index == orgArr index then you should
-        // terminate the function call
-        if (orgArr.length == index) {
-            List<List<Integer>> baseResult = new ArrayList<>();
+    public int[] swap(int[] nums, int i1, int i2){
+        int temp = nums[i1];
+        nums[i1] = nums[i2];
+        nums[i2] = temp;
 
-            baseResult.add(new ArrayList<>(newArr)); // Add a copy of newArr to avoid reference issues
-
-            return baseResult;
-        }
-
-        // Self work is that we have to calculate the current element and firstPlace and
-        // seccondPlace by ourselves and ask recursion to do the remaing
-
-        int currentElem = orgArr[index];
-
-        List<List<Integer>> finalAns = new ArrayList<>();
-
-        for (int i = 0; i <= newArr.size(); i++) {
-            newArr.add(i, currentElem); // Insert at position `i`
-            finalAns.addAll(recursivePermute(newArr, orgArr, index + 1));
-            newArr.remove(i); // Backtrack: Remove the inserted element
-        }
-        return finalAns;
-
+        return nums;
     }
 }
