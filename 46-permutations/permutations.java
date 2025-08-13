@@ -23,18 +23,19 @@ class Solution {
 
         for(int i = index; i < nums.length ; i++){
             ds.add(nums[i]);
-            findPermutaions(ds, swap(nums, startIndex, i), ans, index + 1);
-            nums = swap(nums, startIndex, i);
+            swap(nums, startIndex, i);
+            findPermutaions(ds, nums, ans, index + 1);
+            swap(nums, startIndex, i);
             ds.remove(ds.size() - 1);
         }
 
     }
 
-    public int[] swap(int[] nums, int i1, int i2){
+    public void swap(int[] nums, int i1, int i2){
         int temp = nums[i1];
         nums[i1] = nums[i2];
         nums[i2] = temp;
 
-        return nums;
+        return;
     }
 }
