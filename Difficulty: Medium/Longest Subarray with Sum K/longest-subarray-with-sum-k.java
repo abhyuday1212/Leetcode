@@ -19,7 +19,6 @@ class Solution {
                 maxLen = Math.max(maxLen, i + 1);
             }
             else if(!mp.isEmpty() && mp.containsKey(prefixSum - k)){
-                
                 maxLen = Math.max(maxLen, i - mp.get(prefixSum - k));
             }
             
