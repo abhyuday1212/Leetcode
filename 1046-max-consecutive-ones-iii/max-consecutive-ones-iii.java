@@ -12,7 +12,7 @@ class Solution {
             }
 
             // break condition
-            while (zeros > k) {
+            if (zeros > k) {
                 // if the encountered number is zero
                 if (nums[l] == 0) {
                     zeros--;
@@ -20,11 +20,8 @@ class Solution {
                 l++;
             }
 
-            // Check the length
-            if (zeros <= k) {
-                len = r - l + 1;
-                maxLen = Math.max(maxLen, len);
-            }
+            
+            maxLen = Math.max(maxLen, r - l + 1);
 
             r++;
         }
