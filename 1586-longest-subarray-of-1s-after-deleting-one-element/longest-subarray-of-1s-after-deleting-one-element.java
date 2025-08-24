@@ -13,7 +13,7 @@ class Solution {
                  zeroCount++;
             }
 
-            while(zeroCount > 1 && l < n){
+            if(zeroCount > 1 && l < n){
                 if(nums[l] == 0){
                     zeroCount--;
                 }
