@@ -7,21 +7,21 @@ class Solution {
 
         HashMap<Integer, Integer> mp = new HashMap<>();
 
-        while(right < n){
+        while (right < n) {
             int cur = fruits[right];
             mp.put(cur, mp.getOrDefault(cur, 0) + 1);
 
-           // break condition;
-           while(mp.size() > 2){
-            int freq = mp.get(fruits[left]);
-            mp.put(fruits[left], freq - 1);
+            // break condition;
+            while (mp.size() > 2) {
+                int freq = mp.get(fruits[left]);
+                mp.put(fruits[left], freq - 1);
 
-            if(mp.get(fruits[left]) <= 0){
-                mp.remove(fruits[left]);
+                if (mp.get(fruits[left]) <= 0) {
+                    mp.remove(fruits[left]);
+                }
+
+                left++;
             }
-
-            left++;
-           }
 
             maxCount = Math.max(maxCount, right - left + 1);
             right++;
