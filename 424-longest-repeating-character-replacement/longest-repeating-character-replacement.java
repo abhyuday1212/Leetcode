@@ -12,16 +12,18 @@ class Solution {
         for (char candidate : mp.keySet()) {
             result = Math.max(result, longestRepeatingChars(s, k, candidate));
         }
+
         return result;
     }
 
-    public int longestRepeatingChars(String str, int k, char maxChar) {
+   public int longestRepeatingChars(String str, int k, char maxChar) {
         int l = 0, r = 0, maxLen = 0;
         int zeros = 0;
         int len = 0;
+        int n = str.length();
         char[] charArr = str.toCharArray();
 
-        while (r < charArr.length) {
+        while (r < n) {
             int curr = charArr[r];
 
             if (curr != maxChar) {
@@ -29,20 +31,15 @@ class Solution {
             }
 
             // break condition
-            while (zeros > k) {
+            while (zeros > k && l < n) {
                 // if the encountered number is zero or different from the maxchar
                 if (charArr[l] != maxChar) {
                     zeros--;
                 }
                 l++;
             }
-
-            // Check the length
-            if (zeros <= k) {
-                len = r - l + 1;
-                maxLen = Math.max(maxLen, len);
-            }
-
+            
+            maxLen = Math.max(maxLen,  r - l + 1);
             r++;
         }
 
