@@ -1,17 +1,26 @@
+// BRUT
 class Solution {
     public boolean canJump(int[] nums) {
-        int n = nums.length;
-        int maxIndex = 0;
+        Boolean[] dp = new Boolean[nums.length];
 
-        for(int i = 0; i < n; i++){
-           if(i > maxIndex) return false;
+        return helper(nums, 0, dp);
+    }
 
-           maxIndex = Math.max(maxIndex, i + nums[i]);
-
-            // If we can reach or exceed the last index, return true immediately.
-            if (maxIndex >= n - 1) return true;
+    public boolean helper(int[] nums, int index, Boolean[] dp) {
+        if (index >= nums.length || index == nums.length - 1) {
+            return true;
         }
 
-        return false;
+          if (dp[index] != null) {
+            return dp[index];
+        }
+
+        for (int i = 1; i <= nums[index]; i++) {
+            if (helper(nums, index + i, dp)) {
+                return dp[index] = true;
+            }
+        }
+
+        return dp[index] = false;
     }
 }
