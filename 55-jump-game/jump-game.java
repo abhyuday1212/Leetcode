@@ -5,16 +5,24 @@ class Solution {
         int maxIndex = 0;
 
         for (int i = 0; i < n; i++) {
-            maxIndex = Math.max(maxIndex, nums[i] + i);
+            // maxIndex = Math.max(maxIndex, nums[i] + i);
 
-            if(nums[i] == 0 && maxIndex < n - 1 && i >= maxIndex){
-                break;
-            }
-            else if (maxIndex >= n - 1) {
-                // System.out.println("MAxIndex: " + maxIndex);
-                // System.out.println("nums[i]: " + nums[i]);
+            // if(nums[i] == 0 && maxIndex < n - 1 && i >= maxIndex){
+            //     break;
+            // }
+            // else if (maxIndex >= n - 1) {
+            //     // System.out.println("MAxIndex: " + maxIndex);
+            //     // System.out.println("nums[i]: " + nums[i]);
+            //     return true;
+            // }
+            if (i > maxIndex)
+                return false;
+
+            maxIndex = Math.max(maxIndex, i + nums[i]);
+
+            // If we can reach or exceed the last index, return true immediately.
+            if (maxIndex >= n - 1)
                 return true;
-            }
         }
 
         return false;
