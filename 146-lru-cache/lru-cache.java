@@ -29,8 +29,6 @@ class LRUCache {
     }
 
     public void put(int key, int value) {
-        Node temp = new Node(key, value);
-
         if (mp.containsKey(key)) {
             Node oldNode = mp.get(key);
             deleteNode(oldNode);
