@@ -8,14 +8,14 @@ class Solution {
         int row = 0;
         int col = n - 1;
 
-        while(row < m && col >= 0){
-            //matrix[row][col] is the corner most index of the matrix at top right
-            if(matrix[row][col] == target){
+        while (row < m && col >= 0) {
+            if (matrix[row][col] == target) {
                 return true;
+            } else if (matrix[row][col] < target) {
+                row++;
+            } else {
+                col--;
             }
-            else if(matrix[row][col] < target) row++; // since element is bigger than move down to search in higher search space
-
-            else col--; //move leftword as we have choosed the matrix[row][col] as the mid element
         }
 
         return false;
