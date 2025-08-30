@@ -1,9 +1,12 @@
 class Solution {
     public int minEatingSpeed(int[] piles, int h) {
-        Arrays.sort(piles);
-        int start = 1;
+        int n = piles.length;
 
-        int end = piles[piles.length - 1];
+        Arrays.sort(piles);
+
+        int start = 1;
+        int end = piles[n - 1];
+
         int ans = 1;
 
         while (start <= end) {
