@@ -8,12 +8,12 @@ class Solution {
         while (start <= end) {
             int mid = start + (end - start) / 2;
 
-            if (nums[start] <= nums[mid]) {// nums array is left sorted
+            if (nums[start] <= nums[mid]) {
+                // left part is sorted, take the min element
                 tempAns = Math.min(tempAns, nums[start]);
-
                 start = mid + 1;
-
             } else {
+                // right part is sorted, take the min element
                 tempAns = Math.min(tempAns, nums[mid]);
                 end = mid - 1;
             }
