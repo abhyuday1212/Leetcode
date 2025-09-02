@@ -12,39 +12,36 @@ class Solution {
     public int orangesRotting(int[][] grid) {
         int m = grid.length;
         int n = grid[0].length;
+        boolean[][] isVisited = new boolean[m][n];
 
-        int timeTaken = 0;
-        int freshOrange = 0;
+        int freshOranges = 0;
 
-        boolean isVisited[][] = new boolean[m][n];
+        // q to store rotten organges
         Queue<Pair> q = new LinkedList<>();
 
         for (int row = 0; row < m; row++) {
             for (int col = 0; col < n; col++) {
-                if (!isVisited[row][col] && grid[row][col] == 2) {
+                if (grid[row][col] == 2) {
                     q.add(new Pair(row, col));
-                    isVisited[row][col] = true;
                 } else if (grid[row][col] == 1) {
-                    freshOrange++;
-                } else {
-                    isVisited[row][col] = true;
+                    freshOranges++;
                 }
             }
         }
 
-        // find the adjacent elements
         int[] dr = { -1, 1, 0, 0 };
         int[] dc = { 0, 0, -1, 1 };
 
-        while (!q.isEmpty() && freshOrange > 0) {
+        int timeRequired = 0;
+
+        while (!q.isEmpty()) {
             int qSize = q.size();
             boolean infectedThisMinute = false;
 
             for (int i = 0; i < qSize; i++) {
-                Pair curPair = q.poll();
-                int curRow = curPair.row;
-                int curCol = curPair.col;
-
+                Pair p = q.poll();
+                int curRow = p.row;
+                int curCol = p.col;
                 isVisited[curRow][curCol] = true;
 
                 for (int k = 0; k < 4; k++) {
@@ -56,20 +53,18 @@ class Solution {
                             && grid[nextRow][nextCol] == 1) {
                         // infect it
                         grid[nextRow][nextCol] = 2;
-                        freshOrange--;
+                        freshOranges--;
                         isVisited[nextRow][nextCol] = true;
                         q.add(new Pair(nextRow, nextCol));
                         infectedThisMinute = true;
                     }
                 }
             }
-
             if (infectedThisMinute) {
-                timeTaken++;
+                timeRequired++;
             }
-
         }
 
-        return (freshOrange == 0 ? timeTaken : -1);
+        return freshOranges == 0 ? timeRequired : -1;
     }
 }
