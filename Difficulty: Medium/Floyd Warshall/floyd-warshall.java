@@ -3,7 +3,7 @@
 class Solution {
     public void floydWarshall(int[][] dist) {
         int n = dist.length;
-         int INF = 100000000; //10^8
+         int INF = 10_00_00_000; //10^8
         
         for(int k = 0; k < n; k++){
             for(int i = 0; i < n; i++){
