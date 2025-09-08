@@ -19,9 +19,9 @@ class Solution {
         // * The self work is to calculate at every index the element it is iterating
         // and then passing the current index as a parameter on the further recursion
         // calls.
-        List<Integer> takenArr = new ArrayList<>(newArr);
-        takenArr.add(orgArr[index]);
-        List<List<Integer>> takenAns = recursiveSubset(takenArr, orgArr, index + 1);
+        newArr.add(orgArr[index]);
+        List<List<Integer>> takenAns = recursiveSubset(newArr, orgArr, index + 1);
+        newArr.remove(newArr.size() - 1);
 
         List<List<Integer>> notTakenAns = recursiveSubset(newArr, orgArr, index + 1);
 
