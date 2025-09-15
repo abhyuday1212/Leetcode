@@ -1,33 +1,39 @@
 class Solution {
     public String largestSwap(String s) {
         int n = s.length();
-        
-        int possibleIdx = -1;
-        StringBuilder sb = new StringBuilder(s);
-        
-        for(int i = 0; i < n; i++){
-            for(int j = i + 1; j < n; j++){
-                if(s.charAt(i) < s.charAt(j)){
-                    if(possibleIdx != -1 && s.charAt(j) >= s.charAt(possibleIdx)){
-                        // possible ans;
-                        possibleIdx = j;
-                    }
-                    else if(possibleIdx == -1){
-                        possibleIdx = j;
-                    }
-                }
-                
-            }
-            
-            if(possibleIdx != -1){
-                // swap
-                char tempCh = s.charAt(i);
-                sb.setCharAt(i, sb.charAt(possibleIdx));
-                sb.setCharAt(possibleIdx, tempCh);
-                break;
+        if (n < 2) return s;
+
+        char[] a = s.toCharArray();
+
+        // track best suffix maximum seen so far (from right)
+        char maxChar = a[n - 1];
+        int maxPos = n - 1;
+
+        // candidate swap positions
+        int left = -1, right = -1;
+
+        // scan from right to left
+        for (int i = n - 2; i >= 0; --i) {
+            if (a[i] > maxChar) {
+                // new maximum in suffix
+                maxChar = a[i];
+                maxPos = i;
+            } else if (a[i] < maxChar) {
+                // a swap with maxPos would improve; record it
+                left = i;
+                right = maxPos;
+                // keep scanning — because we go leftwards, any future assignment
+                // will be to a smaller index i (which is desirable)
             }
         }
-        
-        return sb.toString();
+
+        if (left == -1) return s; // already maximal
+
+        // perform the swap
+        char tmp = a[left];
+        a[left] = a[right];
+        a[right] = tmp;
+
+        return new String(a);
     }
 }
