@@ -45,7 +45,7 @@ class DisjointSet{
 class Solution {
     public int[] findRedundantConnection(int[][] edges) {
         int n = edges.length;
-        DisjointSet ds = new DisjointSet(n + 1);
+        DisjointSet ds = new DisjointSet(n);
 
         for(int[] e: edges){
             int u = e[0];
