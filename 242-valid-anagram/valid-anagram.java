@@ -31,10 +31,10 @@ class Solution {
         boolean ans = true;
 
         for (char key : mapT.keySet()) { // a = 1, c =3
-            System.out.println(mapT.get(key));
-            System.out.println(mapS.get(key));
+            // System.out.println(mapT.get(key));
+            // System.out.println(mapS.get(key));
             if (!mapT.get(key).equals(mapS.get(key))) {
-                System.out.println(mapT.get(key));
+                // System.out.println(mapT.get(key));
                 ans = false;
                 break;
             }
