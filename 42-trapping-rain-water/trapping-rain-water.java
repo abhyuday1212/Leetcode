@@ -12,13 +12,12 @@ class Solution {
         }
 
         return sum;
-
     }
 
     public int[] prefixMax(int[] height) {
         // it has similar concept of prefixMax
-        int[] prefix = new int[height.length];
         int n = height.length;
+        int[] prefix = new int[n];
 
         prefix[0] = height[0];
 
@@ -31,8 +30,8 @@ class Solution {
 
     public int[] suffixMax(int[] height) {
         // it has similar concept of suffixMax
-        int[] suffix = new int[height.length];
         int n = height.length;
+        int[] suffix = new int[n];
 
         suffix[n - 1] = height[n - 1];
 
