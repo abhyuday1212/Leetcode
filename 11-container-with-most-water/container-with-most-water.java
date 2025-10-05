@@ -11,13 +11,21 @@ class Solution {
         while (l < r) {
             int minHt = Math.min(height[l], height[r]);
             int dif = r - l;
-            maxArea = Math.max(maxArea, minHt * dif);
+            int area = minHt * dif;
 
-            if (height[l] <= height[r]) {
-                l = l + 1;
-            } else {
-                r = r - 1;
-            }
+            maxArea = Math.max(maxArea, area);
+
+            // if (height[l] <= height[r]) {
+            //     l = l + 1;
+            // } else {
+            //     r = r - 1;
+            // }
+
+            // Optimization
+            while (l < r && height[l] <= minHt)
+                l++;
+            while (l < r && height[r] <= minHt)
+                r--;
         }
 
         return maxArea;
