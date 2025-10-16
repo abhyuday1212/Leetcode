@@ -13,7 +13,14 @@ class Solution {
 
     public void solve(int col, char[][] board, List<List<String>> ans, int n) {
         if (col == n) {
-            ans.add(construct(board));
+            List<String> cur = new ArrayList<>();
+
+            for (int i = 0; i < board.length; i++) {
+                // System.out.println("Board[i]: " + Arrays.toString( board[i]));
+                cur.add(new String(board[i]));
+            }
+
+            ans.add(cur);
             return;
         }
 
@@ -24,14 +31,6 @@ class Solution {
                 board[row][col] = '.';
             }
         }
-    }
-
-    private List<String> construct(char[][] board) {
-        List<String> cur = new ArrayList<>();
-        for (int i = 0; i < board.length; i++) {
-            cur.add(new String(board[i]));
-        }
-        return cur;
     }
 
     // TC: O(3n) => Brut
