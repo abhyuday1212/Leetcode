@@ -1,8 +1,8 @@
 class Solution {
     public int[] searchRange(int[] nums, int target) {
 
-        if(nums.length == 0) return new int[]{-1,-1};
-
+        if (nums.length == 0)
+            return new int[] { -1, -1 };
 
         int floorVal = floor(nums, target);
         int ceilVal = ceil(nums, target);
@@ -14,19 +14,18 @@ class Solution {
         int start = 0;
         int end = nums.length - 1;
 
-         if (target < nums[0]) {
+        if (target < nums[0]) {
             return -1; // No floor exists
         }
 
         int floor = -1;
-
-        List<Integer> list1 = new ArrayList<>();
+        boolean isNumExist = false;
 
         while (start <= end) {
             int mid = start + (end - start) / 2;
 
-            if(nums[mid] == target){
-                list1.add(nums[mid]);
+            if (nums[mid] == target) {
+                isNumExist = true;
             }
 
             if (nums[mid] <= target) {
@@ -37,7 +36,9 @@ class Solution {
             }
         }
 
-        if(list1.isEmpty()) return -1;
+        if (!isNumExist) {
+            return -1;
+        }
 
         return floor;
     }
@@ -46,21 +47,19 @@ class Solution {
         int start = 0;
         int end = nums.length - 1;
 
-        
-
         if (target > nums[end]) {
             return -1; // No ceil exists
         }
 
-        List<Integer> list1 = new ArrayList<>();
+        boolean isNumExist = false;
 
         int ceil = -1;
 
         while (start <= end) {
             int mid = start + (end - start) / 2;
 
-            if(nums[mid] == target){
-                list1.add(nums[mid]);
+            if (nums[mid] == target) {
+                isNumExist = true;
             }
 
             if (nums[mid] >= target) {
@@ -71,7 +70,8 @@ class Solution {
             }
         }
 
-        if(list1.isEmpty()) return -1;
+        if (!isNumExist)
+            return -1;
 
         return ceil;
     }
