@@ -6,20 +6,17 @@ class Solution {
         while(start <= end){
             int mid = start + (end - start)/2;
 
-            if(target == nums[mid]){
+            if(nums[mid] == target){
                 return mid;
             }
-            else if( target < nums[mid]){
-                //shif end
-                end = mid - 1;
+            if(nums[mid] < target){
+                start = start + 1;
             }
             else{
-                start = mid + 1;
+                end = mid - 1;
             }
         }
 
         return -1;
-
-
     }
 }
