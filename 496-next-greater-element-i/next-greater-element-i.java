@@ -15,7 +15,7 @@ class Solution {
 
             mp.put(curElem, i);
 
-            while (!st.isEmpty() && st.peek() < nums2[i]) {
+            while (!st.isEmpty() && st.peek() <= nums2[i]) {
                 st.pop();
             }
 
