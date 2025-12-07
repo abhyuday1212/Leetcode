@@ -1,21 +1,23 @@
-
 class LRUCache {
     class Node {
-        int key, val;
+        int key;
+        int val;
         Node next, back;
 
-        Node(int key1, int val1) {
-            this.key = key1;
-            this.val = val1;
+        public Node(int key, int val) {
+            this.key = key;
+            this.val = val;
             this.next = null;
             this.back = null;
         }
     }
 
-    HashMap<Integer, Node> mp;
+    Map<Integer, Node> mp;
     int capacity;
 
-    private Node head, tail; // dummy head and tail
+    // node val, dist
+
+    private Node head, tail;
 
     public LRUCache(int capacity) {
         this.capacity = capacity;
@@ -28,43 +30,12 @@ class LRUCache {
         tail.back = head;
     }
 
-    public void put(int key, int value) {
-        if (mp.containsKey(key)) {
-            Node oldNode = mp.get(key);
-            deleteNode(oldNode);
-            mp.remove(key);
-        }
-
-        if (mp.size() == capacity) {
-            // Remove LRU from back (tail.prev)
-            Node lru = tail.back;
-            deleteNode(lru);
-            mp.remove(lru.key);
-        }
-
-        Node newNode = new Node(key, value);
-        insertAfterHead(newNode);
-        mp.put(key, newNode);
-    }
-
-    public int get(int key) {
-        if (!mp.containsKey(key)) {
-            return -1;
-        }
-
-        Node node = mp.get(key);
-
-        deleteNode(node);
-        insertAfterHead(node);
-
-        return node.val;
-    }
-
     public void insertAfterHead(Node curNode) {
         Node frontNode = head.next;
 
         head.next = curNode;
         curNode.back = head;
+
         curNode.next = frontNode;
         frontNode.back = curNode;
     }
@@ -75,6 +46,36 @@ class LRUCache {
 
         prevNode.next = frontNode;
         frontNode.back = prevNode;
+    }
+
+    public int get(int key) {
+        if (!mp.containsKey(key)) {
+            return -1;
+        }
+
+        Node node = mp.get(key);
+        deleteNode(node);
+        insertAfterHead(node);
+        return node.val;
+    }
+
+    public void put(int key, int value) {
+        if (mp.containsKey(key)) {
+            Node oldNode = mp.get(key);
+            deleteNode(oldNode);
+            mp.remove(key);
+        }
+
+        if (mp.size() == capacity) {
+            Node lastNode = tail.back;
+            deleteNode(lastNode);
+            mp.remove(lastNode.key);
+        }
+
+        Node newNode = new Node(key, value);
+        insertAfterHead(newNode);
+        mp.put(key, newNode);
+
     }
 }
 
