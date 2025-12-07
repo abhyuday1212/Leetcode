@@ -21,19 +21,19 @@ class Solution {
         int zeros = 0;
         int len = 0;
         int n = str.length();
-        char[] charArr = str.toCharArray();
+        // char[] charArr = str.toCharArray();
 
         while (r < n) {
-            int curr = charArr[r];
+            int curr = str.charAt(r);
 
             if (curr != maxChar) {
                 zeros++;
             }
 
-            // break condition
-            while (zeros > k && l < n) {
+            // break condition => while or if
+            if(zeros > k && l < n) {
                 // if the encountered number is zero or different from the maxchar
-                if (charArr[l] != maxChar) {
+                if (str.charAt(l) != maxChar) {
                     zeros--;
                 }
                 l++;
